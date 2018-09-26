@@ -7,7 +7,7 @@
             "es2015"
         ],
         // "strict": true,
-        "allowSyntheticDefaultImports": false,
+        "allowSyntheticDefaultImports": true,
         "noImplicitAny": true,
         "noImplicitReturns": true,
         "noImplicitThis": true,

@@ -1,5 +1,6 @@
 
 import { ActionContext, ActionTree, GetterTree, Module, MutationTree, Store, StoreOptions, ModuleTree, Plugin } from "vuex"
+import merge  from "deepmerge"
 
 const useRootNamespace = { root: true }
 
@@ -244,10 +245,8 @@ class StoreBuilderImpl<R> extends ModuleBuilderImpl<any, R> {
     {
         if (!this._store)
         {
-            const options: StoreOptions<R> & { namespaced?: boolean } = {
-                ...this.vuexModule(),
-                ...overrideOptions
-            }
+            const options: StoreOptions<R> & { namespaced?: boolean } = 
+                merge(this.vuexModule(), overrideOptions)
             const store = new Store<R>(options)
             forEachValue(this._moduleBuilders, m => m._provideStore(store))
             this._store = store

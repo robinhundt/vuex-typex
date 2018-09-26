@@ -8,15 +8,8 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
 import { Store } from "vuex";
+import merge from "deepmerge";
 var useRootNamespace = { root: true };
 var ModuleBuilderImpl = /** @class */ (function () {
     function ModuleBuilderImpl(namespace, _initialState) {
@@ -146,7 +139,7 @@ var StoreBuilderImpl = /** @class */ (function (_super) {
     StoreBuilderImpl.prototype.vuexStore = function (overrideOptions) {
         if (overrideOptions === void 0) { overrideOptions = {}; }
         if (!this._store) {
-            var options = __assign({}, this.vuexModule(), overrideOptions);
+            var options = merge(this.vuexModule(), overrideOptions);
             var store_1 = new Store(options);
             forEachValue(this._moduleBuilders, function (m) { return m._provideStore(store_1); });
             this._store = store_1;
